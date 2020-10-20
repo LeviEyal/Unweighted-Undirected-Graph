@@ -7,22 +7,18 @@ import java.util.LinkedList;
 
 public class Graph_DS implements graph{
 
-    private ArrayList<node_data> vertices;
+    private HashMap<Integer, node_data> vertices;
     private int edges = 0;
     private int nodeSize = 0;
     private int mc = 0;
-    private HashMap<Integer, node_data> verts;
 
     public Graph_DS() {
-        vertices = new ArrayList<>();
-        verts = new HashMap<>();
+        vertices = new HashMap<>();
     }
 
     public Graph_DS(graph other) {
-        vertices = new ArrayList<>(other.getV());
-//        for(int i=0; i< vertices.size(); i++){
-//            getV(i) = new LinkedList<>(other.getV(i));
-//        }
+        vertices = new HashMap<>();
+        //TODO
     }
 
     @Override
@@ -41,16 +37,11 @@ public class Graph_DS implements graph{
 
     @Override
     public void addNode(node_data n) {
-        if(!verts.containsValue(n)){
-            verts.put(n.getKey(), n);
+        if(!vertices.containsValue(n)){
+            vertices.put(n.getKey(), n);
             nodeSize++;
             mc++;
         }
-//        if(!vertices.contains(n)){
-//            vertices.add((NodeData) n);
-//            nodeSize++;
-//            mc++;
-//        }
     }
 
     @Override
@@ -65,7 +56,7 @@ public class Graph_DS implements graph{
 
     @Override
     public Collection<node_data> getV() {
-        return vertices;
+        return vertices.values();
     }
 
     @Override
@@ -75,21 +66,23 @@ public class Graph_DS implements graph{
 
     @Override
     public node_data removeNode(int key) {
-        if(key>=0 && key< vertices.size() && vertices.get(key).getKey() != -1){
+        if(vertices.containsKey(key)){
             node_data t = vertices.get(key);
-            for (int i = 0; i < vertices.size() ; i++) {
-                vertices.get(i).removeNode(t);
-            }
-            vertices.get(key).getNi().clear();
+            LinkedList<node_data> t2 = (LinkedList<node_data>) t.getNi();
+            while(!t.getNi().isEmpty())
+                removeEdge(t2.getFirst().getKey(),key);
+//            vertices.get(key).getNi().clear();
+            vertices.remove(key);
+            mc++;
+            nodeSize--;
+            return t;
         }
-
         return null;
     }
 
     @Override
     public void removeEdge(int node1, int node2) {
         if(hasEdge(node1,node2)){
-            System.out.println("tt");
             getNode(node1).removeNode(getNode(node2));
             getNode(node2).removeNode(getNode(node1));
             mc++;
@@ -115,10 +108,9 @@ public class Graph_DS implements graph{
     @Override
     public String toString() {
         String s = "";
-        for(int i=0; i< vertices.size(); i++){
-            s += (getNode(i).getKey())+" "+getV(i) + "\n";
+        for(int key: vertices.keySet()){
+            s += key+": "+vertices.get(key).getNi()+"\n";
         }
-
         return s;
     }
 }

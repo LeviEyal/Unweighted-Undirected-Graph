@@ -3,7 +3,7 @@ package ex0;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class NodeData implements node_data{
+public class NodeData implements node_data {
 
     private static int numOfVertices = 0;
     private LinkedList<node_data> ni;

@@ -14,10 +14,10 @@ public class Graph_Ex0_Test {
     public static void main(String[] args) {
         test1();
         System.out.println(g0);
-//        test2();
-//        System.out.println(g0);
-        test3();
+        test2();
         System.out.println(g0);
+//        test3();
+//        System.out.println(g0);
     }
     public static void test1() {
 
@@ -34,11 +34,13 @@ public class Graph_Ex0_Test {
     }
     public static void test2() {
         g0.removeEdge(2,3);
-//        g0.removeEdge(9,3);
+        g0.removeEdge(9,3);
         g0.removeNode(0);
-//        g0.removeNode(0);
-//        g0.removeNode(2);
-//        g0.removeNode(8);
+        g0.removeNode(0);
+        g0.addNode(new NodeData());
+        g0.removeNode(2);
+        g0.removeNode(8);
+        g0.connect(6,10);
     }
     public static void test3() {
         ga = new Graph_Algo(g0);
