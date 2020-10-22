@@ -1,6 +1,5 @@
 package ex0;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,7 +17,15 @@ public class Graph_DS implements graph{
 
     public Graph_DS(graph other) {
         vertices = new HashMap<>();
-        //TODO
+        for(node_data n : other.getV()){
+            vertices.put(n.getKey(), new NodeData(n));
+        }
+        for(int i: vertices.keySet()){
+            for (int j: vertices.keySet()){
+                if(other.hasEdge(i,j))
+                    connect(i,j);
+            }
+        }
     }
 
     @Override
@@ -37,11 +44,9 @@ public class Graph_DS implements graph{
 
     @Override
     public void addNode(node_data n) {
-        if(!vertices.containsValue(n)){
-            vertices.put(n.getKey(), n);
-            nodeSize++;
-            mc++;
-        }
+        vertices.putIfAbsent(n.getKey(), n);
+        nodeSize++;
+        mc++;
     }
 
     @Override
@@ -68,10 +73,9 @@ public class Graph_DS implements graph{
     public node_data removeNode(int key) {
         if(vertices.containsKey(key)){
             node_data t = vertices.get(key);
-            LinkedList<node_data> t2 = (LinkedList<node_data>) t.getNi();
+            Collection<node_data> t2 = t.getNi();
             while(!t.getNi().isEmpty())
-                removeEdge(t2.getFirst().getKey(),key);
-//            vertices.get(key).getNi().clear();
+                removeEdge(t2.iterator().next().getKey(),key);
             vertices.remove(key);
             mc++;
             nodeSize--;

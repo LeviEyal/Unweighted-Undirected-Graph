@@ -13,9 +13,9 @@ public class Graph_Ex0_Test {
 
     public static void main(String[] args) {
         test1();
-        System.out.println(g0);
+        System.out.println("g0:\n"+g0);
         test2();
-        System.out.println(g0);
+        System.out.println("g0:\n"+g0);
 //        test3();
 //        System.out.println(g0);
     }
@@ -30,7 +30,7 @@ public class Graph_Ex0_Test {
             int b = nextRnd(0,v_size);
             g0.connect(a,b);
         }
-        // System.out.println(g0);
+         System.out.println("finish");
     }
     public static void test2() {
         g0.removeEdge(2,3);
@@ -46,19 +46,18 @@ public class Graph_Ex0_Test {
         ga = new Graph_Algo(g0);
         g1 = ga.copy();
         ga.init(g1);
-        g1.addNode(new NodeData());
-        g1.connect(10,9);
-//        boolean isConnected = ga.isConnected();
+//        g1.addNode(new NodeData());
+//        g1.connect(10,9);
+//        g0.removeNode(5);
+        boolean isConnected = ga.isConnected();
+        System.out.println("g0:\n"+g0);
+        System.out.println("g1:\n"+g1+"\nis connected: "+isConnected);
 //        int dist19 = ga.shortestPathDist(1,9);
-//        int dist91 = ga.shortestPathDist(1,9);
-//        List<node_data> sp = ga.shortestPath(1,9);
-        System.out.println(g1);
-//        System.out.println("Is connected: "+isConnected);
+        int dist32 = ga.shortestPathDist(3,2);
 //        System.out.println("shortest path: 1,9 dist="+dist19);
-//        System.out.println("shortest path: 9,1 dist="+dist91);
-//        for (int i=0;i<sp.size();i++) {
-//            System.out.println(" "+sp.get(i));
-//        }
+        System.out.println("shortest path: 3,10 dist="+dist32);
+        List<node_data> sp = ga.shortestPath(3,2);
+        System.out.println(sp);
     }
     public static int nextRnd(int min, int max) {
         double v = nextRnd(0.0+min, (double)max);

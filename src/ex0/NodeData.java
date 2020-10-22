@@ -1,20 +1,29 @@
 package ex0;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class NodeData implements node_data {
 
     private static int numOfVertices = 0;
-    private LinkedList<node_data> ni;
+    private HashMap<Integer,node_data> ni;
     private String info;
     private int tag;
     private int key;
+    private int distance = 0;
 
-    public NodeData(){
-        ni = new LinkedList<>();
+    public NodeData() {
+        ni = new HashMap<>();
         info = "";
         key = numOfVertices++;
+        tag = 0;
+    }
+
+    public NodeData(node_data other) {
+        ni = new HashMap<>();
+        info = other.getInfo();
+        tag = other.getTag();
+        key = other.getKey();
     }
 
     @Override
@@ -24,27 +33,22 @@ public class NodeData implements node_data {
 
     @Override
     public Collection<node_data> getNi() {
-        return ni;
+        return ni.values();
     }
 
     @Override
     public boolean hasNi(int key) {
-        for(node_data node : ni){
-            if(node.getKey() == key)
-                return true;
-        }
-        return false;
+        return ni.containsKey(key);
     }
 
     @Override
     public void addNi(node_data t) {
-        if(!ni.contains(t))
-            ni.add(t);
+            ni.putIfAbsent(t.getKey(),t);
     }
 
     @Override
     public void removeNode(node_data node) {
-        ni.remove(node);
+        getNi().remove(node);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class NodeData implements node_data {
 
     @Override
     public void setInfo(String s) {
-        info = ""+s;
+        info = "" + s;
     }
 
     @Override
@@ -69,6 +73,14 @@ public class NodeData implements node_data {
 
     @Override
     public String toString() {
-        return "#"+key+" ";
+        return "#" + key + " ";
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }
