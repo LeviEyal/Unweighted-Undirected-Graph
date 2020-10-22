@@ -2,7 +2,6 @@ package ex0;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Graph_DS implements graph{
 
@@ -16,6 +15,8 @@ public class Graph_DS implements graph{
     }
 
     public Graph_DS(graph other) {
+        edges = other.edgeSize();
+        nodeSize = other.nodeSize();
         vertices = new HashMap<>();
         for(node_data n : other.getV()){
             vertices.put(n.getKey(), new NodeData(n));

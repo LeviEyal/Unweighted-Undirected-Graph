@@ -43,6 +43,7 @@ public interface graph {
      * @return Collection<node_data>
      */
     public Collection<node_data> getV();
+
     /**
      * This method return a collection of  the
      * collection representing all the nodes connected to node_id
@@ -50,6 +51,7 @@ public interface graph {
      * @return Collection<node_data>
      */
     public Collection<node_data> getV(int node_id);
+
     /**
      * Delete the node (with the given ID) from the graph -
      * and removes all edges which starts or ends at this node.

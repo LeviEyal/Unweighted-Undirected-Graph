@@ -23,7 +23,7 @@ public class Graph_Algo implements graph_algorithms{
 
     @Override
     public boolean isConnected() {
-        resetTags();
+        resetTags(0);
         Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize()+10);
         Iterator<node_data> it = g.getV().iterator();
         node_data v = it.next();
@@ -43,26 +43,29 @@ public class Graph_Algo implements graph_algorithms{
         return true;
     }
 
-    private void resetTags() {
+    private void resetTags(int t) {
         for(node_data n: g.getV())
-            n.setTag(0);
+            n.setTag(t);
     }
 
     @Override
     public int shortestPathDist(int src, int dest) {
-        resetTags();
-        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize()+10);
-        NodeData t = (NodeData) g.getNode(src);
-        t.setDistance(0);
+        if(src == dest) return 0;
+        node_data a = g.getNode(src);
+        node_data b = g.getNode(dest);
+        if(a == null || b == null) return -1;
+
+        resetTags(0);
+        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize());
         q.add(g.getNode(src));
         while(!q.isEmpty()){
             node_data v = q.remove();
-//            System.out.print(v+" -> ");
             for(node_data n: v.getNi()){
-                if(n.getKey() == dest) return 0;
+                if(n.getKey() == dest)
+                    return v.getTag()+1;
                 if(n.getTag() == 0){
                     q.add(n);
-                    n.setTag(1);
+                    n.setTag(v.getTag()+1);
                 }
             }
         }
@@ -71,25 +74,34 @@ public class Graph_Algo implements graph_algorithms{
 
     @Override
     public List<node_data> shortestPath(int src, int dest) {
-        resetTags();
-        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize()+10);
+        if(src == dest) return null;
+        node_data a = g.getNode(src);
+        node_data b = g.getNode(dest);
+        if(a == null || b == null) return null;
+
+        resetTags(-1);
+        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize());
         List<node_data> path = new ArrayList<>();
-//        path.add(g.getNode(src));
         q.add(g.getNode(src));
-        int level=0;
         while(!q.isEmpty()){
             node_data v = q.remove();
-            path.add(v);
-//            System.out.print(v+" -> ");
             for(node_data n: v.getNi()){
-                if(n.getKey() == dest) return path;
-                if(n.getTag() == 0){
+                if(n.getKey() == dest) {
+                    n.setTag(v.getKey());
+                    int t = n.getKey();
+                    while(t != src){
+                        path.add(g.getNode(t));
+                        t = g.getNode(t).getTag();
+                    }
+                    Collections.reverse(path);
+                    return path;
+                }
+                if(n.getTag() == -1){
                     q.add(n);
-                    n.setTag(1);
+                    n.setTag(v.getKey());
                 }
             }
         }
-        path.clear();
-        return path;
+        return null;
     }
 }

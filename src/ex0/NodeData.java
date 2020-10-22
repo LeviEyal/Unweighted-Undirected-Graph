@@ -10,7 +10,6 @@ public class NodeData implements node_data {
     private String info;
     private int tag;
     private int key;
-    private int distance = 0;
 
     public NodeData() {
         ni = new HashMap<>();
@@ -74,13 +73,5 @@ public class NodeData implements node_data {
     @Override
     public String toString() {
         return "#" + key + " ";
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
     }
 }
