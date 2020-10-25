@@ -11,6 +11,10 @@ public class Graph_Algo implements graph_algorithms{
         this.g = g0;
     }
 
+    public Graph_Algo() {
+
+    }
+
     @Override
     public void init(graph g) {
         this.g = g;
@@ -23,10 +27,12 @@ public class Graph_Algo implements graph_algorithms{
 
     @Override
     public boolean isConnected() {
+        if(g.nodeSize() == 0 || g.nodeSize() == 1) return true;
         resetTags(0);
-        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize()+10);
+        Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize());
         Iterator<node_data> it = g.getV().iterator();
         node_data v = it.next();
+        v.setTag(1);
         q.add(v);
         while(!q.isEmpty()){
             v = q.remove();
@@ -57,7 +63,7 @@ public class Graph_Algo implements graph_algorithms{
 
         resetTags(0);
         Queue<node_data> q = new ArrayBlockingQueue<>(g.nodeSize());
-        q.add(g.getNode(src));
+        q.add(a);
         while(!q.isEmpty()){
             node_data v = q.remove();
             for(node_data n: v.getNi()){
@@ -93,6 +99,7 @@ public class Graph_Algo implements graph_algorithms{
                         path.add(g.getNode(t));
                         t = g.getNode(t).getTag();
                     }
+                    path.add(g.getNode(t));
                     Collections.reverse(path);
                     return path;
                 }

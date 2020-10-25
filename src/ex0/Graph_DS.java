@@ -5,24 +5,24 @@ import java.util.HashMap;
 
 public class Graph_DS implements graph{
 
-    private HashMap<Integer, node_data> vertices;
+    private HashMap<Integer, node_data> v;
     private int edges = 0;
     private int nodeSize = 0;
     private int mc = 0;
 
     public Graph_DS() {
-        vertices = new HashMap<>();
+        v = new HashMap<>();
     }
 
     public Graph_DS(graph other) {
         edges = other.edgeSize();
         nodeSize = other.nodeSize();
-        vertices = new HashMap<>();
+        v = new HashMap<>();
         for(node_data n : other.getV()){
-            vertices.put(n.getKey(), new NodeData(n));
+            v.put(n.getKey(), new NodeData(n));
         }
-        for(int i: vertices.keySet()){
-            for (int j: vertices.keySet()){
+        for(int i: v.keySet()){
+            for (int j: v.keySet()){
                 if(other.hasEdge(i,j))
                     connect(i,j);
             }
@@ -31,11 +31,7 @@ public class Graph_DS implements graph{
 
     @Override
     public node_data getNode(int key) {
-        try {
-            return vertices.get(key);
-        }catch (Exception e){
-            return null;
-        }
+        return v.get(key);
     }
 
     @Override
@@ -45,7 +41,7 @@ public class Graph_DS implements graph{
 
     @Override
     public void addNode(node_data n) {
-        vertices.putIfAbsent(n.getKey(), n);
+        v.putIfAbsent(n.getKey(), n);
         nodeSize++;
         mc++;
     }
@@ -62,22 +58,22 @@ public class Graph_DS implements graph{
 
     @Override
     public Collection<node_data> getV() {
-        return vertices.values();
+        return v.values();
     }
 
     @Override
     public Collection<node_data> getV(int node_id) {
-        return vertices.get(node_id).getNi();
+        return v.get(node_id).getNi();
     }
 
     @Override
     public node_data removeNode(int key) {
-        if(vertices.containsKey(key)){
-            node_data t = vertices.get(key);
+        if(v.containsKey(key)){
+            node_data t = v.get(key);
             Collection<node_data> t2 = t.getNi();
             while(!t.getNi().isEmpty())
                 removeEdge(t2.iterator().next().getKey(),key);
-            vertices.remove(key);
+            v.remove(key);
             mc++;
             nodeSize--;
             return t;
@@ -113,8 +109,8 @@ public class Graph_DS implements graph{
     @Override
     public String toString() {
         String s = "";
-        for(int key: vertices.keySet()){
-            s += key+": "+vertices.get(key).getNi()+"\n";
+        for(int key: v.keySet()){
+            s += key+": "+ v.get(key).getNi()+"\n";
         }
         return s;
     }

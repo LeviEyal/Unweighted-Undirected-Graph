@@ -3,6 +3,9 @@ package ex0;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ *
+ */
 public class NodeData implements node_data {
 
     private static int numOfVertices = 0;
@@ -18,6 +21,9 @@ public class NodeData implements node_data {
         tag = 0;
     }
 
+    /**
+     * @param other - another Node to copy from
+     */
     public NodeData(node_data other) {
         ni = new HashMap<>();
         info = other.getInfo();
@@ -25,11 +31,19 @@ public class NodeData implements node_data {
         key = other.getKey();
     }
 
+    /**
+     *
+     * @return key of this node
+     */
     @Override
     public int getKey() {
         return key;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Collection<node_data> getNi() {
         return ni.values();
