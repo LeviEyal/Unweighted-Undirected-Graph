@@ -143,7 +143,7 @@ public class Graph_Ex0_Test2 {
 
     public static void test9() {
         graph g10 = graph_creator(10,30,1);
-        //    System.out.println(g10);
+            System.out.println(g10);
         node_data[] nodes = nodes(g10);
         int a0 = nodes[0].getKey();
         int a1 = nodes[1].getKey();

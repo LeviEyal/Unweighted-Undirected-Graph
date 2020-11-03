@@ -7,13 +7,31 @@ import java.util.List;
 public class testGraphAlgo {
     public static void main(String[] args) {
 
+        graph graph = new Graph_DS();
+        for (int i = 0; i <= 4; i++) {
+            node_data node = new NodeData();
+            graph.addNode(node);
+        }
+        graph.connect(4, 1);
+        graph.connect(1, 3);
+        graph.connect(2, 3);
+        graph.connect(4, 3);
+        graph.connect(0, 4);
+        graph.connect(0, 1);
+        graph.connect(1, 2);
+        Graph_Algo ga = new Graph_Algo();
+        ga.init(graph);
+
+        System.out.println(ga.isConnected());
+        System.out.println(ga.shortestPathDist(4, 2));
+        System.out.println(ga.shortestPath(4, 2));
     /*
     * Each test should be run separately
     * */
 //    test1();
 //    test2();
 //    test3();
-        test4();
+//        test4();
     }
     private static void test1() {
         System.out.println("test 1 ");

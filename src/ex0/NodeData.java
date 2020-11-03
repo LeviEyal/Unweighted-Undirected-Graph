@@ -53,12 +53,12 @@ public class NodeData implements node_data {
 
     @Override
     public void addNi(node_data t) {
-            ni.putIfAbsent(t.getKey(),t);
+        ni.putIfAbsent(t.getKey(),t);
     }
 
     @Override
     public void removeNode(node_data node) {
-        getNi().remove(node);
+        ni.remove(node.getKey());
     }
 
     @Override

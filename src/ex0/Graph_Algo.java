@@ -2,6 +2,9 @@ package ex0;
 
 import java.util.*;
 
+/**
+ *
+ */
 public class Graph_Algo implements graph_algorithms{
 
     private graph g;
@@ -33,7 +36,7 @@ public class Graph_Algo implements graph_algorithms{
     @Override
     public boolean isConnected() {
         if(g.nodeSize() == 0 || g.nodeSize() == 1) return true;
-        resetTags(0);
+        setAllTags(0);
         Queue<node_data> q = new LinkedList<>();
         node_data v = g.getV().iterator().next(); //pick some node
         v.setTag(1);
@@ -54,7 +57,7 @@ public class Graph_Algo implements graph_algorithms{
     }
 
     //reset all nodes....
-    private void resetTags(int t) {
+    private void setAllTags(int t) {
         for(node_data n: g.getV())
             n.setTag(t);
     }
@@ -66,7 +69,7 @@ public class Graph_Algo implements graph_algorithms{
         node_data b = g.getNode(dest);
         if(a == null || b == null) return -1;
 
-        resetTags(0);
+        setAllTags(0);
         Queue<node_data> q = new LinkedList<>();
         q.add(a);
         while(!q.isEmpty()){
@@ -85,14 +88,17 @@ public class Graph_Algo implements graph_algorithms{
 
     @Override
     public List<node_data> shortestPath(int src, int dest) {
-        if(src == dest) return null;
         node_data a = g.getNode(src);
         node_data b = g.getNode(dest);
         if(a == null || b == null) return null;
 
-        resetTags(-1);
-        Queue<node_data> q = new LinkedList<>();
         List<node_data> path = new ArrayList<>();
+        if(src == dest) {
+            path.add(a);
+            return path;
+        }
+        setAllTags(-1);
+        Queue<node_data> q = new LinkedList<>();
         q.add(g.getNode(src));
         while(!q.isEmpty()){
             node_data v = q.remove();
