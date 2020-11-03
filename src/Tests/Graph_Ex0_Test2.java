@@ -1,4 +1,4 @@
-package ex0;
+package Tests;
 /**
  * This is a basic test class to test mainly the basic performance.
  * Note: This is not a JUnit test - and should surely be, to be fixed in Ex1.
@@ -30,6 +30,8 @@ package ex0;
  *
  *
  */
+
+import ex0.*;
 
 import java.util.Collection;
 import java.util.Date;

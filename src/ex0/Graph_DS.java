@@ -6,9 +6,13 @@ import java.util.HashMap;
 /**
  * This class represents an undirected unweighted graph.
  * The implementation based on adjacency list representation -
- * created with HashMap data structure to increase accessing vertices speed.
+ * created with HashMap data structure for accessing vertices quickly.
  * The class implements the interface graph -
  * for more documentation visit this interface.
+ * @see ex0.graph
+ *
+ * @author Eyal Levi
+ * https://github.com/LeviEyal
  */
 public class Graph_DS implements graph{
 
@@ -47,7 +51,7 @@ public class Graph_DS implements graph{
     /**
      * return the node_data by the node_id.
      * The method runs in O(1) time.
-     * @param key the node_id
+     * @param key The Key that the desired node associated with.
      * @return the node_data by the node_id, null if none.
      */
     @Override
@@ -58,15 +62,15 @@ public class Graph_DS implements graph{
     /**
      * Checks if two given nodes are connected.
      * The method runs in O(1) time.
-     * @param node1 the first node's key
-     * @param node2 the second node's key
+     * @param key1 the first node's key
+     * @param key2 the second node's key
      * @return true if the two nodes are connected.
      */
     @Override
-    public boolean hasEdge(int node1, int node2) {
-        node_data n = getNode(node1);
+    public boolean hasEdge(int key1, int key2) {
+        node_data n = getNode(key1);
         if(n != null)
-            return n.hasNi(node2);
+            return n.hasNi(key2);
         return false;
     }
 
@@ -89,15 +93,15 @@ public class Graph_DS implements graph{
      * Connects two given nodes by their key.
      * If they already connected, the method does nothing.
      * The method runs in O(1) time.
-     * @param node1 The first node's key
-     * @param node2 The second node's key
+     * @param key1 The first node's key
+     * @param key2 The second node's key
      */
     @Override
-    public void connect(int node1, int node2) {
-        node_data n1 = getNode(node1);
-        node_data n2 = getNode(node2);
-        if(n1==null || n2==null || node1==node2) return;
-        if(!hasEdge(node1,node2)){
+    public void connect(int key1, int key2) {
+        node_data n1 = getNode(key1);
+        node_data n2 = getNode(key2);
+        if(n1==null || n2==null || key1==key2) return;
+        if(!hasEdge(key1,key2)){
             n1.addNi(n2);
             n2.addNi(n1);
             edges++;
@@ -126,6 +130,13 @@ public class Graph_DS implements graph{
         return v.get(key).getNi();
     }
 
+    /**
+     * Remove a node associated with a given key,
+     * and remove all of the edges that involves this node.
+     * The method runs in O(n) time, where n stands for the amount of this graph's vertices.
+     * @param key A key of the node to be removed
+     * @return The deleted node if succeeded. otherwise return null.
+     */
     @Override
     public node_data removeNode(int key) {
         if(v.containsKey(key)){
@@ -141,11 +152,17 @@ public class Graph_DS implements graph{
         return null;
     }
 
+    /**
+     * Disconnect two node associated with two given keys.
+     * If they already disconnected, the method does nothing.
+     * @param key1 The key to the first node
+     * @param key2 The key to the second node
+     */
     @Override
-    public void removeEdge(int node1, int node2) {
-        if(hasEdge(node1,node2)){
-            node_data n1 = getNode(node1);
-            node_data n2 = getNode(node2);
+    public void removeEdge(int key1, int key2) {
+        if(hasEdge(key1,key2)){
+            node_data n1 = getNode(key1);
+            node_data n2 = getNode(key2);
             n1.removeNode(n2);
             n2.removeNode(n1);
             mc++;
@@ -153,21 +170,38 @@ public class Graph_DS implements graph{
         }
     }
 
+    /**
+     * @return The number of nodes of this graph.
+     * The method runs in O(1) time.
+     */
     @Override
     public int nodeSize() {
         return nodeSize;
     }
 
+    /**
+     * @return The number of edges of this graph.
+     * The method runs in O(1) time.
+     */
     @Override
     public int edgeSize() {
         return edges;
     }
 
+    /**
+     * return the Mode Count - for testing changes in the graph.
+     * Any change in the inner state of the graph should cause an increment in the ModeCount
+     * @return The counts
+     */
     @Override
     public int getMC() {
         return mc;
     }
 
+    /**
+     * Returns a string representation of this graph as an adjacency list.
+     * @return A string representation of this graph
+     */
     @Override
     public String toString() {
         String s = "";
